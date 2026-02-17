@@ -1,12 +1,13 @@
 package pl.jacgaw.extensions.coroutines
 
+import androidx.annotation.Keep
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.suspendCoroutine
 
-
+@Keep
 suspend inline fun <T> suspendCoroutineWithTimeout(
     timeout: Long,
     crossinline block: (Continuation<T>) -> Unit,
@@ -16,6 +17,7 @@ suspend inline fun <T> suspendCoroutineWithTimeout(
     }
 }
 
+@Keep
 suspend inline fun <T> suspendCancellableCoroutineWithTimeout(
     timeout: Long,
     crossinline block: (CancellableContinuation<T>) -> Unit,

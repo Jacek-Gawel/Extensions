@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -49,23 +51,28 @@ dependencies {
 
 project.afterEvaluate {
     publishing {
+        repositories {
+            val githubProperties = Properties()
+            githubProperties.load(
+                File("github.properties")
+                    .reader(),
+            )
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/Jacek-Gawel/Extensions")
+                credentials {
+                    username = githubProperties.getProperty("gpr.usr")
+                    password = githubProperties.getProperty("gpr.key")
+                }
+            }
+        }
         publications {
             register<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "pl.jacgaw"
                 artifactId = "extensions"
-                version = "1.0"
+                version = "1.1"
             }
-        }
-    }
-}
-repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/aclas-polska/aclas-manager")
-        credentials {
-            username = project.findProperty("gpr.user") as String
-            password = project.findProperty("gpr.key") as String
         }
     }
 }
