@@ -71,7 +71,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "pl.jacgaw"
                 artifactId = "extensions"
-                version = "1.3"
+                version = "1.5"
             }
         }
     }
